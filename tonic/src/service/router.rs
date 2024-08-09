@@ -96,8 +96,20 @@ impl Routes {
     }
 
     /// Convert this `Routes` into an [`axum::Router`].
+    #[deprecated(since = "0.12.2", note = "Use `Routes::into_axum_router` instead.")]
     pub fn into_router(self) -> axum::Router {
+        self.into_axum_router()
+    }
+
+    /// Convert this `Routes` into an [`axum::Router`].
+    pub fn into_axum_router(self) -> axum::Router {
         self.router
+    }
+}
+
+impl From<axum::Router> for Routes {
+    fn from(router: axum::Router) -> Self {
+        Self { router }
     }
 }
 
